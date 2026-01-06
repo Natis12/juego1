@@ -403,6 +403,111 @@
             box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
             text-transform: uppercase;
         }
+
+        /* HISTORY SECTION */
+        .history-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .history-item {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .history-item.correct {
+            border-left: 3px solid #22c55e;
+        }
+
+        .history-item.wrong {
+            border-left: 3px solid #ef4444;
+        }
+
+        /* STUDY SCREEN */
+        .study-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 200;
+            display: none;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .study-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .study-section {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .study-section h3 {
+            color: #60a5fa;
+            margin-bottom: 15px;
+        }
+
+        .verb-table,
+        .art-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .verb-table th,
+        .verb-table td,
+        .art-table th,
+        .art-table td {
+            padding: 8px 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .verb-table th,
+        .art-table th {
+            background: rgba(96, 165, 250, 0.2);
+            color: #60a5fa;
+        }
+
+        .verb-table td:first-child {
+            text-align: left;
+            font-weight: bold;
+            color: var(--neon-gold);
+        }
+
+        .art-table td:last-child {
+            text-align: left;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 
@@ -428,6 +533,284 @@
         <button class="mode-btn" style="border-color: var(--neon-gold)" onclick="selectMode('all')">
             MIX TOTAL <span>🔥</span>
         </button>
+
+        <button class="mode-btn" style="margin-top: 30px; border-color: #60a5fa; background: rgba(96,165,250,0.1)"
+            onclick="showStudy()">
+            📚 Estudio
+        </button>
+    </div>
+
+    <!-- STUDY SCREEN -->
+    <div class="study-screen" id="study-screen">
+        <button class="btn-back" onclick="hideStudy()">← Volver</button>
+        <div class="study-content">
+            <h2 style="color: var(--neon-gold); margin-bottom: 20px">📖 Guía de Estudio</h2>
+
+            <!-- CONJUGATION TABLE -->
+            <section class="study-section">
+                <h3>🎯 Conjugaciones Verbales</h3>
+                <table class="verb-table">
+                    <tr>
+                        <th></th>
+                        <th>ich</th>
+                        <th>du</th>
+                        <th>er/sie</th>
+                        <th>wir</th>
+                        <th>ihr</th>
+                        <th>sie/Sie</th>
+                    </tr>
+                    <tr>
+                        <td>machen</td>
+                        <td>mache</td>
+                        <td>machst</td>
+                        <td>macht</td>
+                        <td>machen</td>
+                        <td>macht</td>
+                        <td>machen</td>
+                    </tr>
+                    <tr>
+                        <td>trinken</td>
+                        <td>trinke</td>
+                        <td>trinkst</td>
+                        <td>trinkt</td>
+                        <td>trinken</td>
+                        <td>trinkt</td>
+                        <td>trinken</td>
+                    </tr>
+                    <tr>
+                        <td>essen</td>
+                        <td>esse</td>
+                        <td><b>isst</b></td>
+                        <td><b>isst</b></td>
+                        <td>essen</td>
+                        <td>esst</td>
+                        <td>essen</td>
+                    </tr>
+                    <tr>
+                        <td>fahren</td>
+                        <td>fahre</td>
+                        <td><b>fährst</b></td>
+                        <td><b>fährt</b></td>
+                        <td>fahren</td>
+                        <td>fahrt</td>
+                        <td>fahren</td>
+                    </tr>
+                    <tr>
+                        <td>sehen</td>
+                        <td>sehe</td>
+                        <td><b>siehst</b></td>
+                        <td><b>sieht</b></td>
+                        <td>sehen</td>
+                        <td>seht</td>
+                        <td>sehen</td>
+                    </tr>
+                    <tr>
+                        <td>lesen</td>
+                        <td>lese</td>
+                        <td><b>liest</b></td>
+                        <td><b>liest</b></td>
+                        <td>lesen</td>
+                        <td>lest</td>
+                        <td>lesen</td>
+                    </tr>
+                    <tr>
+                        <td>sprechen</td>
+                        <td>spreche</td>
+                        <td><b>sprichst</b></td>
+                        <td><b>spricht</b></td>
+                        <td>sprechen</td>
+                        <td>sprecht</td>
+                        <td>sprechen</td>
+                    </tr>
+                    <tr>
+                        <td>mögen</td>
+                        <td>mag</td>
+                        <td>magst</td>
+                        <td>mag</td>
+                        <td>mögen</td>
+                        <td>mögt</td>
+                        <td>mögen</td>
+                    </tr>
+                    <tr>
+                        <td>möchten</td>
+                        <td>möchte</td>
+                        <td>möchtest</td>
+                        <td>möchte</td>
+                        <td>möchten</td>
+                        <td>möchtet</td>
+                        <td>möchten</td>
+                    </tr>
+                    <tr>
+                        <td>sein</td>
+                        <td>bin</td>
+                        <td>bist</td>
+                        <td>ist</td>
+                        <td>sind</td>
+                        <td>seid</td>
+                        <td>sind</td>
+                    </tr>
+                    <tr>
+                        <td>haben</td>
+                        <td>habe</td>
+                        <td>hast</td>
+                        <td>hat</td>
+                        <td>haben</td>
+                        <td>habt</td>
+                        <td>haben</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- ARTICLES -->
+            <section class="study-section">
+                <h3>🔄 Artículos Determinados e Indeterminados (Nominativo)</h3>
+                <p style="color:#94a3b8; margin-bottom:15px">En Nominativo (sujeto), los artículos definidos se
+                    transforman en indefinidos:</p>
+                <table class="art-table">
+                    <tr>
+                        <th>Género</th>
+                        <th>Definido</th>
+                        <th>Indefinido</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td>Masculino</td>
+                        <td class="c-der">der</td>
+                        <td>ein</td>
+                        <td>Das ist <span class="c-der">der</span> Bus → Das ist <b>ein</b> Bus</td>
+                    </tr>
+                    <tr>
+                        <td>Femenino</td>
+                        <td class="c-die">die</td>
+                        <td>eine</td>
+                        <td>Das ist <span class="c-die">die</span> Lampe → Das ist <b>eine</b> Lampe</td>
+                    </tr>
+                    <tr>
+                        <td>Neutro</td>
+                        <td class="c-das">das</td>
+                        <td>ein</td>
+                        <td>Das ist <span class="c-das">das</span> Auto → Das ist <b>ein</b> Auto</td>
+                    </tr>
+                    <tr>
+                        <td>Plural</td>
+                        <td class="c-pl">die</td>
+                        <td>—</td>
+                        <td>Das sind <span class="c-pl">die</span> Bücher → Das sind <b>—</b> Bücher</td>
+                    </tr>
+                </table>
+
+                <h4 style="color:#60a5fa; margin-top:20px; margin-bottom:10px">❌ Artículos Negativos (Nominativo)</h4>
+                <table class="art-table">
+                    <tr>
+                        <th>Género</th>
+                        <th>Indef.</th>
+                        <th>Negativo</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td>Masculino</td>
+                        <td>ein</td>
+                        <td><b>kein</b></td>
+                        <td>Das ist <b>kein</b> Bus</td>
+                    </tr>
+                    <tr>
+                        <td>Femenino</td>
+                        <td>eine</td>
+                        <td><b>keine</b></td>
+                        <td>Das ist <b>keine</b> Lampe</td>
+                    </tr>
+                    <tr>
+                        <td>Neutro</td>
+                        <td>ein</td>
+                        <td><b>kein</b></td>
+                        <td>Das ist <b>kein</b> Auto</td>
+                    </tr>
+                    <tr>
+                        <td>Plural</td>
+                        <td>—</td>
+                        <td><b>keine</b></td>
+                        <td>Das sind <b>keine</b> Bücher</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- ACCUSATIVE -->
+            <section class="study-section">
+                <h3>⚡ Caso Acusativo (Objeto Directo)</h3>
+                <p style="color:#94a3b8; margin-bottom:15px">En Acusativo, <b>solo el masculino cambia</b>: der →
+                    <b>den</b>
+                </p>
+                <table class="art-table">
+                    <tr>
+                        <th>Género</th>
+                        <th>Nominativo</th>
+                        <th>Acusativo</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td>Masculino</td>
+                        <td class="c-der">der</td>
+                        <td class="c-der"><b>den</b></td>
+                        <td>Ich nehme <span class="c-der">den</span> Bus</td>
+                    </tr>
+                    <tr>
+                        <td>Femenino</td>
+                        <td class="c-die">die</td>
+                        <td class="c-die">die</td>
+                        <td>Ich sehe <span class="c-die">die</span> Lampe</td>
+                    </tr>
+                    <tr>
+                        <td>Neutro</td>
+                        <td class="c-das">das</td>
+                        <td class="c-das">das</td>
+                        <td>Ich kaufe <span class="c-das">das</span> Brot</td>
+                    </tr>
+                    <tr>
+                        <td>Plural</td>
+                        <td class="c-pl">die</td>
+                        <td class="c-pl">die</td>
+                        <td>Ich sehe <span class="c-pl">die</span> Bücher</td>
+                    </tr>
+                </table>
+
+                <h4 style="color:#60a5fa; margin-top:20px; margin-bottom:10px">❌ Artículos Negativos (Acusativo)</h4>
+                <table class="art-table">
+                    <tr>
+                        <th>Género</th>
+                        <th>Nom. (kein-)</th>
+                        <th>Akk. (kein-)</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td>Masculino</td>
+                        <td>kein</td>
+                        <td><b>keinen</b></td>
+                        <td>Ich habe <b>keinen</b> Bus</td>
+                    </tr>
+                    <tr>
+                        <td>Femenino</td>
+                        <td>keine</td>
+                        <td>keine</td>
+                        <td>Ich habe <b>keine</b> Lampe</td>
+                    </tr>
+                    <tr>
+                        <td>Neutro</td>
+                        <td>kein</td>
+                        <td>kein</td>
+                        <td>Ich habe <b>kein</b> Auto</td>
+                    </tr>
+                    <tr>
+                        <td>Plural</td>
+                        <td>keine</td>
+                        <td>keine</td>
+                        <td>Ich habe <b>keine</b> Bücher</td>
+                    </tr>
+                </table>
+
+                <p style="color:#94a3b8; margin-top:15px"><b>Verbos que usan Acusativo:</b> nehmen, möchten, brauchen,
+                    suchen, kaufen, haben, sehen, essen, trinken</p>
+            </section>
+        </div>
     </div>
 
     <div class="game-area">
@@ -474,6 +857,14 @@
         <!-- CONTROLS -->
         <div class="options-grid" id="options">
             <!-- Buttons injected here -->
+        </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="history-section" id="history-section">
+        <h3 style="color: #94a3b8; margin-bottom: 10px; font-size: 0.9rem">📋 HISTORIAL</h3>
+        <div class="history-list" id="history-list">
+            <!-- History items added here -->
         </div>
     </div>
 
@@ -552,12 +943,13 @@
             const [word, gender] = nouns[Math.floor(Math.random() * nouns.length)];
             const verb = akkVerbs[Math.floor(Math.random() * akkVerbs.length)];
             const info = getArticleInfo(gender);
+            // Accusative uses DEFINITE articles: der→den, die→die, das→das
             return {
                 type: 'akk',
-                text: `${info.def.charAt(0).toUpperCase() + info.def.slice(1)} ${word}. ${verb} <span class="${info.cssClass}">${info.defAkk}</span> ${word}.`,
+                text: `<span class="${info.cssClass}">${info.def.charAt(0).toUpperCase() + info.def.slice(1)}</span> ${word}`,
                 q: `${verb} ... ${word}`,
-                a: info.indefAkk,
-                opts: ['ein', 'eine', 'einen']
+                a: info.defAkk,
+                opts: ['den', 'die', 'das']
             };
         }
 
@@ -605,7 +997,8 @@
             playerHP: 100,
             enemyHP: 100,
             currentQ: null,
-            mode: 'all' // verb, nom, akk, all
+            mode: 'all', // verb, nom, akk, all
+            history: [] // Track recent answers
         };
 
         const els = {
@@ -623,7 +1016,8 @@
             fbMsg: document.getElementById('fb-msg'),
             fbSub: document.getElementById('fb-sub'),
             arena: document.getElementById('arena'),
-            startScreen: document.getElementById('start-screen')
+            startScreen: document.getElementById('start-screen'),
+            historyList: document.getElementById('history-list')
         };
 
         function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
@@ -632,6 +1026,14 @@
             state.mode = kamode;
             document.getElementById('start-screen').style.display = 'none';
             startGame();
+        }
+
+        function showStudy() {
+            document.getElementById('study-screen').style.display = 'block';
+        }
+
+        function hideStudy() {
+            document.getElementById('study-screen').style.display = 'none';
         }
 
         function startGame() {
@@ -696,22 +1098,52 @@
             });
         }
 
+        // Add answer to history
+        function addToHistory(q, userAnswer, isCorrect) {
+            // Create abbreviated label
+            let label = '';
+            if (q.type === 'verb') {
+                // Extract subject (e.g., "du", "ihr", "er/sie")
+                const subject = q.q.split('+')[0]?.trim() || '';
+                label = `${subject} ${q.a}`; // e.g., "du machst"
+            } else {
+                // Extract just the word for nom/akk
+                const match = q.q.match(/\.\.\.\s*(\S+)/);
+                label = match ? match[1] : q.q;
+            }
+
+            // Add to history array
+            state.history.unshift({ label, answer: q.a, userAnswer, isCorrect });
+            if (state.history.length > 10) state.history.pop(); // Keep last 10
+
+            // Render history - for verbs, label already has the answer
+            els.historyList.innerHTML = state.history.map(h => {
+                if (h.label.includes(h.answer)) {
+                    return `<span class="history-item ${h.isCorrect ? 'correct' : 'wrong'}">${h.label}</span>`;
+                }
+                return `<span class="history-item ${h.isCorrect ? 'correct' : 'wrong'}">${h.label}: <b>${h.answer}</b></span>`;
+            }).join('');
+        }
+
         function handleAnswer(ans) {
             const isCorrect = ans === state.currentQ.a;
 
+            // Add to history
+            addToHistory(state.currentQ, ans, isCorrect);
+
             if (isCorrect) {
                 // Success
-                state.enemyHP -= 15;
+                state.enemyHP -= 7;
                 if (state.enemyHP < 0) state.enemyHP = 0;
                 animAttack(true);
-                showDamage(false, 15);
+                showDamage(false, 7);
                 showFeedback(true);
             } else {
                 // Fail
-                state.playerHP -= 20;
+                state.playerHP -= 10;
                 if (state.playerHP < 0) state.playerHP = 0;
                 animAttack(false);
-                showDamage(true, 20);
+                showDamage(true, 10);
                 showFeedback(false);
             }
 
