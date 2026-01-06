@@ -231,12 +231,15 @@
 
         /* CONTROLS */
         .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-wrap: wrap;
             gap: 15px;
+            justify-content: center;
         }
 
         .btn-opt {
+            flex: 0 0 calc(50% - 8px);
+            /* 2 columns for 4 options */
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
@@ -253,6 +256,13 @@
         .btn-opt:active {
             transform: scale(0.96);
             background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* 3-option layout: single row, smaller buttons */
+        .options-grid.three-opts .btn-opt {
+            flex: 0 0 auto;
+            padding: 15px 25px;
+            font-size: 1rem;
         }
 
         /* FEEDBACK OVERLAY */
@@ -475,8 +485,84 @@
     </div>
 
     <script>
-        // --- GAME DATA ---
-        const questions = [
+        // --- WORD BANKS (Dynamic Question Generation) ---
+        // Nouns from vocabulary game: [word, gender] where gender = 'm' (der), 'f' (die), 'n' (das)
+        const nouns = [
+            // TRANSPORTES - Masculino (der)
+            ['Bus', 'm'], ['Zug', 'm'], ['Reisebus', 'm'], ['Lastwagen', 'm'], ['Hubschrauber', 'm'],
+            // TRANSPORTES - Femenino (die)
+            ['U-Bahn', 'f'], ['Straßenbahn', 'f'],
+            // TRANSPORTES - Neutro (das)
+            ['Fahrrad', 'n'], ['Moped', 'n'], ['Motorrad', 'n'], ['Taxi', 'n'], ['Auto', 'n'],
+            ['Wohnmobil', 'n'], ['Flugzeug', 'n'], ['Schiff', 'n'], ['Boot', 'n'],
+
+            // LUGARES - Masculino (der)
+            ['Bahnhof', 'm'], ['Hafen', 'm'], ['Park', 'm'], ['Markt', 'm'], ['Marktplatz', 'm'],
+            ['Sportplatz', 'm'], ['Spielplatz', 'm'], ['Supermarkt', 'm'], ['Zoo', 'm'],
+            ['Fluss', 'm'], ['See', 'm'], ['Turm', 'm'],
+            // LUGARES - Femenino (die)
+            ['Kirche', 'f'], ['Bank', 'f'], ['Post', 'f'], ['Schule', 'f'], ['Bibliothek', 'f'],
+            ['Apotheke', 'f'], ['Bushaltestelle', 'f'], ['Polizei', 'f'], ['Toilette', 'f'],
+            ['Kunsthalle', 'f'], ['Brücke', 'f'],
+            // LUGARES - Neutro (das)
+            ['Rathaus', 'n'], ['Theater', 'n'], ['Museum', 'n'], ['Hotel', 'n'], ['Kino', 'n'],
+            ['Café', 'n'], ['Krankenhaus', 'n'], ['Schwimmbad', 'n'], ['Konzerthaus', 'n'],
+
+            // COMIDA - Masculino (der)
+            ['Apfel', 'm'], ['Salat', 'm'], ['Käse', 'm'], ['Schinken', 'm'], ['Fisch', 'm'],
+            ['Kuchen', 'm'], ['Reis', 'm'], ['Kaffee', 'm'], ['Tee', 'm'], ['Wein', 'm'],
+            // COMIDA - Femenino (die)
+            ['Banane', 'f'], ['Birne', 'f'], ['Orange', 'f'], ['Kartoffel', 'f'], ['Tomate', 'f'],
+            ['Gurke', 'f'], ['Zwiebel', 'f'], ['Milch', 'f'], ['Butter', 'f'], ['Wurst', 'f'],
+            ['Marmelade', 'f'], ['Suppe', 'f'], ['Pizza', 'f'], ['Torte', 'f'],
+            // COMIDA - Neutro (das)
+            ['Gemüse', 'n'], ['Ei', 'n'], ['Fleisch', 'n'], ['Hähnchen', 'n'], ['Brot', 'n'],
+            ['Brötchen', 'n'], ['Salz', 'n'], ['Eis', 'n'], ['Wasser', 'n'], ['Bier', 'n']
+        ];
+
+        // Verbs for Accusative sentences
+        const akkVerbs = [
+            'Ich nehme', 'Ich möchte', 'Ich brauche', 'Ich suche', 'Ich kaufe',
+            'Ich habe', 'Ich sehe', 'Wir kaufen', 'Er sucht', 'Sie braucht',
+            'Ich esse', 'Ich trinke', 'Wir nehmen'
+        ];
+
+        // Get article info by gender
+        function getArticleInfo(gender) {
+            if (gender === 'm') return { def: 'der', defAkk: 'den', indef: 'ein', indefAkk: 'einen', cssClass: 'c-der' };
+            if (gender === 'f') return { def: 'die', defAkk: 'die', indef: 'eine', indefAkk: 'eine', cssClass: 'c-die' };
+            return { def: 'das', defAkk: 'das', indef: 'ein', indefAkk: 'ein', cssClass: 'c-das' };
+        }
+
+        // Generate a random NOM question
+        function generateNomQuestion() {
+            const [word, gender] = nouns[Math.floor(Math.random() * nouns.length)];
+            const info = getArticleInfo(gender);
+            return {
+                type: 'nom',
+                text: `Das ist <span class="${info.cssClass}">${info.def}</span> ${word}.`,
+                q: `Das ist ... ${word}`,
+                a: info.indef,
+                opts: ['ein', 'eine', 'einen']
+            };
+        }
+
+        // Generate a random AKK question
+        function generateAkkQuestion() {
+            const [word, gender] = nouns[Math.floor(Math.random() * nouns.length)];
+            const verb = akkVerbs[Math.floor(Math.random() * akkVerbs.length)];
+            const info = getArticleInfo(gender);
+            return {
+                type: 'akk',
+                text: `${info.def.charAt(0).toUpperCase() + info.def.slice(1)} ${word}. ${verb} <span class="${info.cssClass}">${info.defAkk}</span> ${word}.`,
+                q: `${verb} ... ${word}`,
+                a: info.indefAkk,
+                opts: ['ein', 'eine', 'einen']
+            };
+        }
+
+        // --- STATIC CONJUGATION QUESTIONS ---
+        const verbQuestions = [
             // CONJUGATION (Regular - machen)
             { type: 'verb', q: 'du + machen', a: 'machst', opts: ['mache', 'machen', 'machst', 'macht'] },
             { type: 'verb', q: 'ihr + machen', a: 'macht', opts: ['machst', 'macht', 'machen', 'mache'] },
@@ -512,34 +598,6 @@
             { type: 'verb', q: 'ihr + sein', a: 'seid', opts: ['bist', 'sind', 'seid', 'ist'] },
             { type: 'verb', q: 'du + haben', a: 'hast', opts: ['habe', 'habt', 'hast', 'hat'] },
             { type: 'verb', q: 'ihr + haben', a: 'habt', opts: ['haben', 'hast', 'habt', 'hat'] },
-
-            // ARTICLES (Definite -> Indefinite - NOMINATIVE)
-            { type: 'nom', text: 'Das ist <span class="c-der">der</span> Bus.', q: 'Das ist ... Bus', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-            { type: 'nom', text: 'Das ist <span class="c-die">die</span> Lampe.', q: 'Das ist ... Lampe', a: 'eine', opts: ['ein', 'eine', 'einen'] },
-            { type: 'nom', text: 'Das ist <span class="c-das">das</span> Auto.', q: 'Das ist ... Auto', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-            { type: 'nom', text: 'Das ist <span class="c-der">der</span> Apfel.', q: 'Das ist ... Apfel', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-            { type: 'nom', text: 'Das ist <span class="c-die">die</span> Tasche.', q: 'Das ist ... Tasche', a: 'eine', opts: ['ein', 'eine', 'einen'] },
-            { type: 'nom', text: 'Das ist <span class="c-das">das</span> Buch.', q: 'Das ist ... Buch', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-            { type: 'nom', text: 'Das ist <span class="c-der">der</span> Stuhl.', q: 'Das ist ... Stuhl', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-
-            // ACCUSATIVE (Subject + Verb + Object)
-            // Masculine (Der -> Den/Einen) - THE CHANGE
-            { type: 'akk', text: 'Der Bus. Ich nehme <span class="c-der">den</span> Bus.', q: 'Ich nehme ... Bus', a: 'einen', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Der Salat. Ich esse <span class="c-der">den</span> Salat.', q: 'Ich esse ... Salat', a: 'einen', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Der Kaffee. Ich möchte <span class="c-der">den</span> Kaffee.', q: 'Ich möchte ... Kaffee', a: 'einen', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Der Schlüssel. Er sucht <span class="c-der">den</span> Schlüssel.', q: 'Er sucht ... Schlüssel', a: 'einen', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Der Tisch. Wir kaufen <span class="c-der">den</span> Tisch.', q: 'Wir kaufen ... Tisch', a: 'einen', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Der Hund. Ich habe <span class="c-der">den</span> Hund.', q: 'Ich habe ... Hund', a: 'einen', opts: ['ein', 'eine', 'einen'] },
-
-            // Feminine (Die -> Die/Eine)
-            { type: 'akk', text: 'Die Pizza. Ich möchte <span class="c-die">die</span> Pizza.', q: 'Ich möchte ... Pizza', a: 'eine', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Die Brille. Sie braucht <span class="c-die">die</span> Brille.', q: 'Sie braucht ... Brille', a: 'eine', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Die Katze. Ich habe <span class="c-die">die</span> Katze.', q: 'Ich habe ... Katze', a: 'eine', opts: ['ein', 'eine', 'einen'] },
-
-            // Neuter (Das -> Das/Ein)
-            { type: 'akk', text: 'Das Wasser. Ich trinke <span class="c-das">das</span> Wasser.', q: 'Ich trinke ... Wasser', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Das Bett. Wir kaufen <span class="c-das">das</span> Bett.', q: 'Wir kaufen ... Bett', a: 'ein', opts: ['ein', 'eine', 'einen'] },
-            { type: 'akk', text: 'Das Handy. Er sucht <span class="c-das">das</span> Handy.', q: 'Er sucht ... Handy', a: 'ein', opts: ['ein', 'eine', 'einen'] },
         ];
 
         // STATE
@@ -588,15 +646,29 @@
 
             els.overlay.classList.remove('visible');
 
-            // Filter questions based on mode
-            let pool = questions;
-            if (state.mode === 'verb') pool = questions.filter(q => q.type === 'verb');
-            else if (state.mode === 'nom') pool = questions.filter(q => q.type === 'nom');
-            else if (state.mode === 'akk') pool = questions.filter(q => q.type === 'akk');
+            // Generate question based on mode
+            let q;
+            if (state.mode === 'verb') {
+                // Use static verb questions
+                q = verbQuestions[Math.floor(Math.random() * verbQuestions.length)];
+            } else if (state.mode === 'nom') {
+                // Generate dynamic nominative question
+                q = generateNomQuestion();
+            } else if (state.mode === 'akk') {
+                // Generate dynamic accusative question
+                q = generateAkkQuestion();
+            } else {
+                // MIX mode - random type
+                const rand = Math.random();
+                if (rand < 0.33) {
+                    q = verbQuestions[Math.floor(Math.random() * verbQuestions.length)];
+                } else if (rand < 0.66) {
+                    q = generateNomQuestion();
+                } else {
+                    q = generateAkkQuestion();
+                }
+            }
 
-            if (pool.length === 0) pool = questions; // Fallback
-
-            const q = pool[Math.floor(Math.random() * pool.length)];
             state.currentQ = q;
 
             let label = 'MISSION';
@@ -613,6 +685,8 @@
             }
 
             els.opts.innerHTML = '';
+            // Add class based on number of options for better styling
+            els.opts.className = 'options-grid' + (q.opts.length === 3 ? ' three-opts' : '');
             shuffle([...q.opts]).forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-opt';
