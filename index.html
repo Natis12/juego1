@@ -476,6 +476,42 @@
             margin-bottom: 15px;
         }
 
+        /* VERB CARDS GRID */
+        .verb-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .verb-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .verb-title {
+            color: var(--neon-gold);
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 6px;
+        }
+
+        .verb-row {
+            font-size: 0.8rem;
+            padding: 3px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .verb-row span {
+            color: #60a5fa;
+            min-width: 45px;
+        }
+
         .verb-table,
         .art-table {
             width: 100%;
@@ -549,116 +585,96 @@
             <!-- CONJUGATION TABLE -->
             <section class="study-section">
                 <h3>🎯 Conjugaciones Verbales</h3>
-                <table class="verb-table">
-                    <tr>
-                        <th></th>
-                        <th>ich</th>
-                        <th>du</th>
-                        <th>er/sie</th>
-                        <th>wir</th>
-                        <th>ihr</th>
-                        <th>sie/Sie</th>
-                    </tr>
-                    <tr>
-                        <td>machen</td>
-                        <td>mache</td>
-                        <td>machst</td>
-                        <td>macht</td>
-                        <td>machen</td>
-                        <td>macht</td>
-                        <td>machen</td>
-                    </tr>
-                    <tr>
-                        <td>trinken</td>
-                        <td>trinke</td>
-                        <td>trinkst</td>
-                        <td>trinkt</td>
-                        <td>trinken</td>
-                        <td>trinkt</td>
-                        <td>trinken</td>
-                    </tr>
-                    <tr>
-                        <td>essen</td>
-                        <td>esse</td>
-                        <td><b>isst</b></td>
-                        <td><b>isst</b></td>
-                        <td>essen</td>
-                        <td>esst</td>
-                        <td>essen</td>
-                    </tr>
-                    <tr>
-                        <td>fahren</td>
-                        <td>fahre</td>
-                        <td><b>fährst</b></td>
-                        <td><b>fährt</b></td>
-                        <td>fahren</td>
-                        <td>fahrt</td>
-                        <td>fahren</td>
-                    </tr>
-                    <tr>
-                        <td>sehen</td>
-                        <td>sehe</td>
-                        <td><b>siehst</b></td>
-                        <td><b>sieht</b></td>
-                        <td>sehen</td>
-                        <td>seht</td>
-                        <td>sehen</td>
-                    </tr>
-                    <tr>
-                        <td>lesen</td>
-                        <td>lese</td>
-                        <td><b>liest</b></td>
-                        <td><b>liest</b></td>
-                        <td>lesen</td>
-                        <td>lest</td>
-                        <td>lesen</td>
-                    </tr>
-                    <tr>
-                        <td>sprechen</td>
-                        <td>spreche</td>
-                        <td><b>sprichst</b></td>
-                        <td><b>spricht</b></td>
-                        <td>sprechen</td>
-                        <td>sprecht</td>
-                        <td>sprechen</td>
-                    </tr>
-                    <tr>
-                        <td>mögen</td>
-                        <td>mag</td>
-                        <td>magst</td>
-                        <td>mag</td>
-                        <td>mögen</td>
-                        <td>mögt</td>
-                        <td>mögen</td>
-                    </tr>
-                    <tr>
-                        <td>möchten</td>
-                        <td>möchte</td>
-                        <td>möchtest</td>
-                        <td>möchte</td>
-                        <td>möchten</td>
-                        <td>möchtet</td>
-                        <td>möchten</td>
-                    </tr>
-                    <tr>
-                        <td>sein</td>
-                        <td>bin</td>
-                        <td>bist</td>
-                        <td>ist</td>
-                        <td>sind</td>
-                        <td>seid</td>
-                        <td>sind</td>
-                    </tr>
-                    <tr>
-                        <td>haben</td>
-                        <td>habe</td>
-                        <td>hast</td>
-                        <td>hat</td>
-                        <td>haben</td>
-                        <td>habt</td>
-                        <td>haben</td>
-                    </tr>
-                </table>
+                <div class="verb-cards">
+                    <div class="verb-card">
+                        <div class="verb-title">machen</div>
+                        <div class="verb-row"><span>ich</span> mache</div>
+                        <div class="verb-row"><span>du</span> machst</div>
+                        <div class="verb-row"><span>er/sie</span> macht</div>
+                        <div class="verb-row"><span>wir</span> machen</div>
+                        <div class="verb-row"><span>ihr</span> macht</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">essen</div>
+                        <div class="verb-row"><span>ich</span> esse</div>
+                        <div class="verb-row"><span>du</span> <b>isst</b></div>
+                        <div class="verb-row"><span>er/sie</span> <b>isst</b></div>
+                        <div class="verb-row"><span>wir</span> essen</div>
+                        <div class="verb-row"><span>ihr</span> esst</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">fahren</div>
+                        <div class="verb-row"><span>ich</span> fahre</div>
+                        <div class="verb-row"><span>du</span> <b>fährst</b></div>
+                        <div class="verb-row"><span>er/sie</span> <b>fährt</b></div>
+                        <div class="verb-row"><span>wir</span> fahren</div>
+                        <div class="verb-row"><span>ihr</span> fahrt</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">sehen</div>
+                        <div class="verb-row"><span>ich</span> sehe</div>
+                        <div class="verb-row"><span>du</span> <b>siehst</b></div>
+                        <div class="verb-row"><span>er/sie</span> <b>sieht</b></div>
+                        <div class="verb-row"><span>wir</span> sehen</div>
+                        <div class="verb-row"><span>ihr</span> seht</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">lesen</div>
+                        <div class="verb-row"><span>ich</span> lese</div>
+                        <div class="verb-row"><span>du</span> <b>liest</b></div>
+                        <div class="verb-row"><span>er/sie</span> <b>liest</b></div>
+                        <div class="verb-row"><span>wir</span> lesen</div>
+                        <div class="verb-row"><span>ihr</span> lest</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">sprechen</div>
+                        <div class="verb-row"><span>ich</span> spreche</div>
+                        <div class="verb-row"><span>du</span> <b>sprichst</b></div>
+                        <div class="verb-row"><span>er/sie</span> <b>spricht</b></div>
+                        <div class="verb-row"><span>wir</span> sprechen</div>
+                        <div class="verb-row"><span>ihr</span> sprecht</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">mögen</div>
+                        <div class="verb-row"><span>ich</span> mag</div>
+                        <div class="verb-row"><span>du</span> magst</div>
+                        <div class="verb-row"><span>er/sie</span> mag</div>
+                        <div class="verb-row"><span>wir</span> mögen</div>
+                        <div class="verb-row"><span>ihr</span> mögt</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">möchten</div>
+                        <div class="verb-row"><span>ich</span> möchte</div>
+                        <div class="verb-row"><span>du</span> möchtest</div>
+                        <div class="verb-row"><span>er/sie</span> möchte</div>
+                        <div class="verb-row"><span>wir</span> möchten</div>
+                        <div class="verb-row"><span>ihr</span> möchtet</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">sein</div>
+                        <div class="verb-row"><span>ich</span> bin</div>
+                        <div class="verb-row"><span>du</span> bist</div>
+                        <div class="verb-row"><span>er/sie</span> ist</div>
+                        <div class="verb-row"><span>wir</span> sind</div>
+                        <div class="verb-row"><span>ihr</span> seid</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">haben</div>
+                        <div class="verb-row"><span>ich</span> habe</div>
+                        <div class="verb-row"><span>du</span> hast</div>
+                        <div class="verb-row"><span>er/sie</span> hat</div>
+                        <div class="verb-row"><span>wir</span> haben</div>
+                        <div class="verb-row"><span>ihr</span> habt</div>
+                    </div>
+                    <div class="verb-card">
+                        <div class="verb-title">trinken</div>
+                        <div class="verb-row"><span>ich</span> trinke</div>
+                        <div class="verb-row"><span>du</span> trinkst</div>
+                        <div class="verb-row"><span>er/sie</span> trinkt</div>
+                        <div class="verb-row"><span>wir</span> trinken</div>
+                        <div class="verb-row"><span>ihr</span> trinkt</div>
+                    </div>
+                </div>
             </section>
 
             <!-- ARTICLES -->
